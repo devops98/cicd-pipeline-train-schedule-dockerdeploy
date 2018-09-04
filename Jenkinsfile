@@ -14,7 +14,7 @@ pipeline {
             }
             steps {
                 script {
-                    app = docker.build("tester99/train-schedule")
+                    app = docker.build("tester99/trainschedule12")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
                     }
@@ -43,14 +43,14 @@ pipeline {
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'myprod_server', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker pull tester99/train-schedule12:${env.BUILD_NUMBER}\""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker pull tester99/trainschedule12:${env.BUILD_NUMBER}\""
                         try {
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker stop train-schedule12\""
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker rm train-schedule12\""
+                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker stop trainschedule12\""
+                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker rm trainschedule12\""
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker run --restart always --name train-schedule12 -p 8080:8080 -d tester99/train-schedule12:${env.BUILD_NUMBER}\""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$prod_ip \"docker run --restart always --name trainschedule12 -p 8080:8080 -d tester99/trainschedule12:${env.BUILD_NUMBER}\""
                     }
                 }
             }
