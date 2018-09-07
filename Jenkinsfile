@@ -4,10 +4,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                sh 'chmod +x ./gradlew'
-                sh 'pwd'
-                sh './gradlew compileDebug --stacktrace'
-                sh 'sudo ./gradlew build --no-daemon'
+                sh 'chmod 755 ./gradlew'
+                
+                sh ' ./gradlew build --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
