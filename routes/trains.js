@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 //  res.send(db.get('trains').sortBy('name').value());
 
   // Connect to the db
-MongoClient.connect("mongodb://localhost:27017/traindb", function (err, db) {
+MongoClient.connect("mongodb://34.244.90.245:27017/traindb", function (err, db) {
     
   db.collection('trains', function (err, collection) {      
  collection.find().toArray(function(err, items) {
